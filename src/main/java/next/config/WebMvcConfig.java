@@ -1,8 +1,13 @@
 package next.config;
 
+import java.util.List;
+
+import next.LoginUser;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -38,5 +43,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         // Serving static files using the Servlet container's default Servlet.
         configurer.enable();
-    }    
+    }
+
+	@Override
+	public void addArgumentResolvers(
+			List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(new LoginUser());
+		super.addArgumentResolvers(argumentResolvers);
+	}
+	
+	
+    
 }
