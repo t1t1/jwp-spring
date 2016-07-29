@@ -2,7 +2,8 @@ package next.config;
 
 import java.util.List;
 
-import next.LoginUser;
+import next.AaHandlerMethodArgumentResolver;
+import next.LoginUserHandlerMethodArgumentResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -48,8 +49,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addArgumentResolvers(
 			List<HandlerMethodArgumentResolver> argumentResolvers) {
-		argumentResolvers.add(new LoginUser());
-		super.addArgumentResolvers(argumentResolvers);
+		argumentResolvers.add(new LoginUserHandlerMethodArgumentResolver());
+		argumentResolvers.add(new AaHandlerMethodArgumentResolver());
 	}
 	
 	
