@@ -17,7 +17,8 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public ModelAndView home(User user) throws Exception {
 //	public ModelAndView home(Model model) throws Exception {
-	public ModelAndView home(Question question, User loginUser,  Model model) throws Exception {
+//	public ModelAndView home(Question question, User loginUser,  Model model) throws Exception {
+	public ModelAndView home(@LoginUser User loginUser,  Model model) throws Exception {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("questions", questionDao.findAll());
 		return mav;
