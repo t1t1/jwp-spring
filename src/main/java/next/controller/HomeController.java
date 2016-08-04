@@ -22,5 +22,6 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("questions", questionDao.findAll());
 		return mav;
+		// test pr
 	}
 }
