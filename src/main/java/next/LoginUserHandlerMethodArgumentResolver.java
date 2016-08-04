@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import next.controller.LoginUser;
 import next.model.User;
 
 import org.springframework.core.MethodParameter;
@@ -17,7 +18,8 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 //		return false;
-		return parameter.getParameterType().equals(User.class);
+//		return parameter.getParameterType().equals(User.class);
+		return parameter.hasParameterAnnotation(LoginUser.class);
 	}
 
 	@Override
