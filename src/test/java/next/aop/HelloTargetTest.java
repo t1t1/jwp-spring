@@ -1,10 +1,7 @@
 package next.aop;
 
-import static org.junit.Assert.*;
+import java.lang.reflect.Proxy;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Test;
 
 public class HelloTargetTest {
@@ -14,6 +11,15 @@ public class HelloTargetTest {
 		Hello hello = new HelloTarget();
 		HelloUppercase proxy = new HelloUppercase(hello);
 		System.out.println(proxy.sayHello("t1t1"));
+	}
+	
+	@Test
+	public void simpleProxy() throws Exception {
+		Hello proxiedHello = (Hello) Proxy.newProxyInstance(getClass()
+				.getClassLoader(), new Class[] { Hello.class },
+				new UppercaseHandler(new HelloTarget()));
+		System.out.println(proxiedHello.sayHello("t1t1"));
+		System.out.println(proxiedHello.sayHi("t1t1"));
 	}
 	
 }
