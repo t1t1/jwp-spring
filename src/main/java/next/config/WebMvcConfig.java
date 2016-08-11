@@ -2,6 +2,8 @@ package next.config;
 
 import java.util.List;
 
+import next.aop.PerformanceAspect;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,8 +25,10 @@ import core.web.argumentresolver.LoginUserHandlerMethodArgumentResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(
-	basePackages = { "next.controller" },
-	includeFilters = @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION)
+	basePackages = { "next.controller", "next.aop" },
+//	includeFilters = @ComponentScan.Filter(value = {Controller.class, PerformanceAspect.class}, type = FilterType.ANNOTATION)
+//	basePackages = { "next.controller" },
+	includeFilters = @ComponentScan.Filter(value = {Controller.class}, type = FilterType.ANNOTATION)
 )
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private static final int CACHE_PERIOD = 31556926; // one year

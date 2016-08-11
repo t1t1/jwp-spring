@@ -2,12 +2,15 @@ package next.config;
 
 import javax.sql.DataSource;
 
+import next.aop.PerformanceAspect;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -17,10 +20,13 @@ import org.springframework.stereotype.Controller;
 
 @Configuration
 @ComponentScan(
-	basePackages = { "next.service", "next.dao" },
+	basePackages = { "next.service", "next.dao", "next.aop" },
+//	basePackages = { "next.service", "next.dao" },
+//	includeFilters = @ComponentScan.Filter(value = {PerformanceAspect.class}, type = FilterType.ANNOTATION), // error
 	excludeFilters = @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION)
 )
 @PropertySource("classpath:application.properties")
+@EnableAspectJAutoProxy(proxyTargetClass=true) // next.config.AppConfig에 @EnableAspectJAutoProxy 설정한다. Cglib 라이브러리를 사용하도록 설정해야 한다.
 public class AppConfig {
 	
 	@Value("${db.driver}")
