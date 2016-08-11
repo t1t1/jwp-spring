@@ -99,6 +99,7 @@
 		</dependency>
 
 		<!-- JSR 303 with Hibernate Validator -->
+		<!--  --> 
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -109,6 +110,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Final</version>
 		</dependency>
+		<!--  --> 
 
 		<!-- Joda Time Library -->
 		<dependency>
