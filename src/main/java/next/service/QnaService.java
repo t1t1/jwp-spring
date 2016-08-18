@@ -11,6 +11,8 @@ import next.model.Answer;
 import next.model.Question;
 import next.model.User;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -35,6 +37,7 @@ public class QnaService {
 	}
 
 	@Transactional(readOnly = true)
+	@Cacheable(key = "questionId")
 	public List<Answer> findAllByQuestionId(long questionId) {
 		return answerDao.findAllByQuestionId(questionId);
 	}
@@ -71,6 +74,7 @@ public class QnaService {
 		questionDao.delete(questionId);
 	}
 
+	@CacheEvict(key = "questionId")
 	public void updateQuestion(long questionId, Question newQuestion, User user) throws CannotOperateException {
 		Question question = questionDao.findById(questionId);
         if (question == null) {
