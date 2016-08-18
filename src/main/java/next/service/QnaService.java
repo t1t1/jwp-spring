@@ -13,8 +13,12 @@ import next.model.User;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, noRollbackFor = RuntimeException.class)
 public class QnaService {
 	private QuestionDao questionDao;
 	private AnswerDao answerDao;
@@ -25,10 +29,12 @@ public class QnaService {
 		this.answerDao = answerDao;
 	}
 
+	@Transactional(readOnly = true)
 	public Question findById(long questionId) {
 		return questionDao.findById(questionId);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Answer> findAllByQuestionId(long questionId) {
 		return answerDao.findAllByQuestionId(questionId);
 	}
